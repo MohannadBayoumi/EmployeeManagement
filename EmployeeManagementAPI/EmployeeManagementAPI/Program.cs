@@ -1,3 +1,4 @@
+using EmployeeManagement.APIs.AutoMapper;
 using EmployeeManagementSystem.BL.Implementations;
 using EmployeeManagementSystem.BL.Interfaces;
 using EmployeeManagementSystemDBContext;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 
@@ -16,7 +18,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(s =>
+{
+    s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+     {
+         Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+         Name = "Authorization",
+         In = ParameterLocation.Header,
+         Type = SecuritySchemeType.ApiKey,
+         Scheme = "Bearer"
+     });
+});
 
 // Configure database and db context
 builder.Services.AddDbContext<TeleDBContext>(options =>
@@ -48,7 +62,9 @@ builder.Services.AddAuthentication(options =>
 });
 
 // Configure DI
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IAuthorizationBL, AuthorizationBL>();
+builder.Services.AddScoped<IEmployeeBL, EmployeeBL>();
 
 var app = builder.Build();
 
@@ -63,6 +79,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+//app.MapControllers();
 
 app.Run();

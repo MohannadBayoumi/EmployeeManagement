@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeManagementSystem.Entities.Enums
+namespace EmployeeManagementSystem.VMs.Enums
 {
     public enum GraduateDegree
     {

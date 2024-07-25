@@ -1,4 +1,4 @@
-﻿using EmployeeManagement.VMs;
+﻿using EmployeeManagement.VMs.VMs;
 using EmployeeManagementAPI;
 using EmployeeManagementSystem.BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
