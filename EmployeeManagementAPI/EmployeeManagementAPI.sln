@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem.DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem.Entities", "EmployeeManagementSystem.Entities\EmployeeManagementSystem.Entities.csproj", "{66CC5F50-9FED-44D9-B848-36E9FA22B6FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem.BL", "EmployeeManagementSystem.BL\EmployeeManagementSystem.BL.csproj", "{FDCBDD79-A9DF-428C-9E19-D8CEE6D1400F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{66CC5F50-9FED-44D9-B848-36E9FA22B6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66CC5F50-9FED-44D9-B848-36E9FA22B6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66CC5F50-9FED-44D9-B848-36E9FA22B6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDCBDD79-A9DF-428C-9E19-D8CEE6D1400F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCBDD79-A9DF-428C-9E19-D8CEE6D1400F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCBDD79-A9DF-428C-9E19-D8CEE6D1400F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCBDD79-A9DF-428C-9E19-D8CEE6D1400F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
