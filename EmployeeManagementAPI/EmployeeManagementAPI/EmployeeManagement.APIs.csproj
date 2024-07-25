@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EmployeeManagementSystem.BL\EmployeeManagementSystem.BL.csproj" />
     <ProjectReference Include="..\EmployeeManagementSystemDBContext\EmployeeManagementSystem.DBContext.csproj" />
+    <ProjectReference Include="..\EmployeeManagementVMs\EmployeeManagement.VMs.csproj" />
   </ItemGroup>
 
 </Project>
