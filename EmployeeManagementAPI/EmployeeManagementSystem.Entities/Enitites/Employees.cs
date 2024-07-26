@@ -15,7 +15,7 @@ namespace EmployeeManagementSystem.Entities.Enitites
         public string Image { get; set; }
         public bool IsDeleted { get; set; }
         public int CreatedById { get; set; }
-        public int ModifiedById { get; set; }
+        public int? ModifiedById { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
 

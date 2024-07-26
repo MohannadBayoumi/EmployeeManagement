@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace EmployeeManagement.VMs
+namespace EmployeeManagement.VMs.VMs
 {
     [DataContract()]
     public class UserLoginVM

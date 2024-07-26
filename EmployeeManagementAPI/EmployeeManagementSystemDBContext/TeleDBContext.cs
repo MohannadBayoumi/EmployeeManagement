@@ -16,6 +16,7 @@ namespace EmployeeManagementSystemDBContext
             modelBuilder.Entity<UserRoles>().HasKey(entity => new { entity.SystemUserId, entity.RoleId });
             modelBuilder.Entity<Employees>(entity =>
             {
+                entity.HasQueryFilter(e => !e.IsDeleted);
                 entity.HasOne(s => s.ModifiedBy)
                     .WithMany()
                     .OnDelete(DeleteBehavior.NoAction);

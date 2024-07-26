@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeManagement.VMs.VMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace EmployeeManagementSystem.BL.Interfaces
 {
     public interface IAuthorizationBL
     {
-        string Login(string username, string password);
+        UserVM Login(string username, string password);
     }
 }

@@ -1,4 +1,4 @@
-﻿using EmployeeManagement.VMs;
+﻿using EmployeeManagement.VMs.VMs;
 using EmployeeManagementAPI;
 using EmployeeManagementSystem.BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmployeeManagement.APIs.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class AuthorizeController : ControllerBase
     {
         private readonly IAuthorizationBL _authorizationBL;
@@ -16,7 +16,7 @@ namespace EmployeeManagement.APIs.Controllers
         }
 
         [HttpPost(Name = "Login")]
-        public string Login([FromBody] UserLoginVM loginVM)
+        public UserVM Login([FromBody] UserLoginVM loginVM)
         {
             try
             {

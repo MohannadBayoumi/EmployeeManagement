@@ -4,6 +4,7 @@ using EmployeeManagementSystemDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagementSystem.DBContext.Migrations
 {
     [DbContext(typeof(TeleDBContext))]
-    partial class TeleDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240725182028_Make ModifiedBy Nullable in table Employee")]
+    partial class MakeModifiedByNullableintableEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
