@@ -6,6 +6,7 @@ using EmployeeManagementSystemDBContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,11 +25,12 @@ namespace EmployeeManagementSystem.BL.Implementations
 
         public int AddEditEmployee(EmployeeInfoVM empInfoVM, int userId)
         {
-            var emp = _dbContext.Employees.Where(e => e.Id == empInfoVM.Id).FirstOrDefault();
+            var emp = _dbContext.Employees.Where(e => e.Id == empInfoVM.Id).FirstOrDefault() ?? new Employees();
 
             emp.Email = empInfoVM.Email;
             emp.PhoneNumber = empInfoVM.PhoneNumber;
             emp.FullName = empInfoVM.FullName;
+            emp.GraduateDegree = (int)empInfoVM.GraduateDegree;
             emp.Image = empInfoVM.Image;
 
             // In case of editting
@@ -58,9 +60,13 @@ namespace EmployeeManagementSystem.BL.Implementations
             return _mapper.Map<EmployeeInfoVM>(emp);
         }
 
-        public List<EmployeeInfoVM> GetEmployeesByCreatorId(int currentUserId)
+        public List<EmployeeInfoVM> GetEmployeesByCreatorId(ClaimsPrincipal claims)
         {
-            List<Employees> emps = _dbContext.Employees.Where(e => e.CreatedById == currentUserId).ToList();
+            var roles = claims.FindFirst(ClaimTypes.Role).Value;
+            var currentUserId = int.Parse(claims.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var isAdmin = roles.ToLower().Contains("admin");
+
+            List<Employees> emps = _dbContext.Employees.Where(e => isAdmin || e.CreatedById == currentUserId).ToList();
             return _mapper.Map<List<Employees>, List<EmployeeInfoVM>>(emps);
         }
 

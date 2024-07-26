@@ -18,11 +18,12 @@ namespace EmployeeManagement.APIs.Controllers
         }
 
         [HttpPost(Name = "AddEditEmployee")]
-        //[Authorize(Roles = "Admin, Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public int AddEditEmployee([FromBody] EmployeeInfoVM? empInfoVM)
         {
             try
             {
+                var x = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 return _employeeBL.AddEditEmployee(empInfoVM, int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
             }
             catch (Exception)
@@ -32,7 +33,7 @@ namespace EmployeeManagement.APIs.Controllers
         }
 
         [HttpGet(Name = "GetEmployee")]
-        //[Authorize(Roles = "Admin, Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public EmployeeInfoVM GetEmployee(int id)
         {
             try
@@ -46,12 +47,12 @@ namespace EmployeeManagement.APIs.Controllers
         }
 
         [HttpGet(Name = "GetAllEmployees")]
-        //[Authorize(Roles = "Admin, Normal")]
+        [Authorize(Roles = "Admin, Normal")]
         public List<EmployeeInfoVM> GetAllEmployees()
         {
             try
             {
-                return _employeeBL.GetEmployeesByCreatorId(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+                return _employeeBL.GetEmployeesByCreatorId(User);
             }
             catch (Exception)
             {
@@ -60,7 +61,7 @@ namespace EmployeeManagement.APIs.Controllers
         }
 
         [HttpDelete(Name = "DeleteEmployee")]
-        //[Authorize(Roles = "Admin, Normal")]
+        [Authorize(Roles = "Admin")]
         public void DeleteEmployee(int id)
         {
             try

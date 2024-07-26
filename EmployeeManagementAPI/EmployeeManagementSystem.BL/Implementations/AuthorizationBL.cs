@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystem.BL.Interfaces;
+﻿using EmployeeManagement.VMs.VMs;
+using EmployeeManagementSystem.BL.Interfaces;
 using EmployeeManagementSystem.Entities.Enitites;
 using EmployeeManagementSystemDBContext;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace EmployeeManagementSystem.BL.Implementations
             _dbContext = dbContext;
             _configuration = configuration;
         }
-        public string Login(string username, string password)
+        public UserVM Login(string username, string password)
         {
             string hashedPassword = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
             var user = _dbContext.SystemUsers.Include(p => p.UserRoles).FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
@@ -31,10 +32,11 @@ namespace EmployeeManagementSystem.BL.Implementations
                 throw new Exception("User not found");
             }
 
-            var roles = (from role in _dbContext.Roles.AsEnumerable()
+            var rolesList = (from role in _dbContext.Roles.AsEnumerable()
                         where user.UserRoles.Any(e => e.RoleId == role.Id)
-                        select new Claim(ClaimTypes.Role, role.Name)).ToList();
+                        select role.Name);
 
+            var roles = rolesList.Select(r => new Claim(ClaimTypes.Role, r)).ToList();
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -58,8 +60,14 @@ namespace EmployeeManagementSystem.BL.Implementations
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
-            
-            return handler.WriteToken(token);
+
+            return new UserVM
+            {
+                UserId = user.Id,
+                Username = username,
+                Role = rolesList.FirstOrDefault(),
+                Token = handler.WriteToken(token)
+            };
         }
     }
 }

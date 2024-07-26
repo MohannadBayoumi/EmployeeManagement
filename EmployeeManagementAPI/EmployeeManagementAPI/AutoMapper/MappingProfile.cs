@@ -8,8 +8,7 @@ namespace EmployeeManagement.APIs.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<EmployeeInfoVM, Employees>();
-            CreateMap<Employees, EmployeeInfoVM>();
+            CreateMap<EmployeeInfoVM, Employees>().ForMember(e => e.GraduateDegree, opt => opt.MapFrom(s => (int)s.GraduateDegree)).ReverseMap();
         }
     }
 }
